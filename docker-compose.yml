@@ -2,7 +2,7 @@ version: '3'
 services:
   db:
     image: postgres:15.3
-    container_name: "rails_api_db"
+    container_name: "bitcoin_rails_api_db"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
@@ -11,15 +11,17 @@ services:
 
   redis:
     image: redis:7.0.12
-    container_name: "rails_api_redis"
+    container_name: "bitcoin_rails_api_redis"
 
-  web:
-    build: .
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+  backend:
+    build:
+      context: ./backend
+      dockerfile: rails.Dockerfile
+    # command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     tty: true
-    container_name: "rails_api_web"
+    container_name: "bitcoin_rails_api_web"
     volumes:
-      - ../backend:/home/dev-user/backend
+      - ./backend:/home/dev-user/backend
     ports:
       - "3000:3000"
     depends_on:
