@@ -1,0 +1,17 @@
+:scheduler:
+  :schedule:
+    get_bitflyer_api:
+      cron: '0 * * * * *'
+      class: GetBitflyerBtcPriceJob
+    get_coincheck_api:
+      cron: '0 * * * * *'
+      class: GetCoincheckBtcPriceJob
+    get_binance_api:
+      cron: '0 * * * * *'
+      class: GetBinanceBtcPriceJob
+    get_USDJPY_api:
+      cron: '30 */5 * * * *'
+      class: GetUsdjpyPriceJob
+    first_get_USDJPY_api:
+      in: 0s
+      class: GetUsdjpyPriceJob
