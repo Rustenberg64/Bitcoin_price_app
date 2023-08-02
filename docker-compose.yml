@@ -28,3 +28,19 @@ services:
       - db
       - redis
     user: dev-user
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: react.Dockerfile
+    # command:
+    tty: true
+    container_name: "bitcoin_react_web"
+    volumes:
+      - ./frontend:/home/dev-user/frontend
+    # ports:
+    #   - "3000:3000"
+    # depends_on:
+    #   - db
+    #   - redis
+    # user: dev-user
