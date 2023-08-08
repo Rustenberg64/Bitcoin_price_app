@@ -3,4 +3,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  get '/api/v1/bitcoin_prices', to: 'bitcoin_prices_v1#get'
 end
