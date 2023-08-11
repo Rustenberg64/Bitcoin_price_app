@@ -1,4 +1,3 @@
-import "./styles.css";
 import React from "react";
 import {
   LineChart,
@@ -10,48 +9,25 @@ import {
   Legend
 } from "recharts";
 
-const series = [
-  {
-    name: "Series 1",
-    data: [
-      { category: "A", value: Math.random() },
-      { category: "B", value: Math.random() },
-      { category: "C", value: Math.random() }
-    ]
-  },
-  {
-    name: "Series 2",
-    data: [
-      { category: "B", value: Math.random() },
-      { category: "C", value: Math.random() },
-      { category: "D", value: Math.random() }
-    ]
-  },
-  {
-    name: "Series 3",
-    data: [
-      { category: "C", value: Math.random() },
-      { category: "D", value: Math.random() },
-      { category: "E", value: Math.random() }
-    ]
-  }
-];
-
-export default function App() {
+export default function App({series}) {
+  const color = ["#8884d8","#8884d8","#3182bd"];
   return (
-    <LineChart width={500} height={300}>
+    <LineChart width={800} height={800}>
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis
-        dataKey="category"
+        dataKey="requested_at"
         type="category"
         allowDuplicatedCategory={false}
       />
-      <YAxis dataKey="value" />
+      <YAxis 
+        dataKey="ltp"
+        domain={['auto', 'auto']} />
       <Tooltip />
       <Legend />
-      {series.map((s) => (
-        <Line dataKey="value" data={s.data} name={s.name} key={s.name} />
+      {series.map((s, i) => (
+        <Line dataKey="ltp" data={s} name={s[0].place} key={s[0].place} stroke={color[i]} />
       ))}
+      {/* <Line dataKey="ltp" data={series.data} name={series.place} key={series.place} /> */}
     </LineChart>
   );
 }
