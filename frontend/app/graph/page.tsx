@@ -19,7 +19,7 @@ type params2 = {
   interval: Number,
 }
 
-const place_list = ["binance", "coincheck", "bitflyer"]
+const place_list = ["Binance", "Coincheck", "bitFlyer"]
 
 const getData =  async ({place , date_from , date_to , interval }: params1) => {
   const url = new URL(`http://localhost:4000/api/v1/bitcoin_prices?place=${place}&from=${date_from}&to=${date_to}&interval=${interval}`)
