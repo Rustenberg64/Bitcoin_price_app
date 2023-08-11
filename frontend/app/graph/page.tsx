@@ -1,14 +1,7 @@
 "use client";
-import { NextPage } from "next";
-import dynamic from "next/dynamic";
-// import App from "./App";
-import {
-  Button,
-  Container,
-  Grid,
-  TextField,
-  formControlClasses,
-} from "@mui/material";
+// import dynamic from "next/dynamic";
+import App from "./App";
+import { Button, Grid, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 
 type params1 = {
@@ -33,7 +26,6 @@ const getData = async ({ place, date_from, date_to, interval }: params1) => {
   const url = new URL(
     `http://localhost:4000/api/v1/bitcoin_prices?place=${place}&from=${date_from}&to=${date_to}&interval=${interval}`
   );
-  // console.log(url)
   // const url =  "http://localhost:4000/api/v1/bitcoin_prices?place=coincheck&from=2023-07-01T12:34:56%2B09:00&to=2024-08-31T12:34:56%2B09:00&interval=1"
   const response = await fetch(url);
   const res = await response.json();
@@ -43,10 +35,10 @@ const getData = async ({ place, date_from, date_to, interval }: params1) => {
 const getAllData = ({ place_list, date_from, date_to, interval }: params2) => {
   const list = place_list.map(async (place) => {
     const res = getData({
-      place: place,
-      date_from: date_from,
-      date_to: date_to,
-      interval: interval,
+      place,
+      date_from,
+      date_to,
+      interval,
     });
     return res;
   });
@@ -61,27 +53,29 @@ const convertToiso8601 = (date: Date) => {
   return simple_date;
 };
 
-const now = new Date();
-const past = new Date(now);
-const date_to = convertToiso8601(now);
-past.setDate(past.getDate() - 1);
-const date_from = convertToiso8601(past);
+const getDatefrom_Dateto = () => {
+  const now = new Date();
+  const past = new Date(now);
+  const date_to = convertToiso8601(now);
+  past.setHours(past.getHours() - 3);
+  const date_from = convertToiso8601(past);
+  return { date_from, date_to };
+};
 
 const initParams = {
   place_list: place_list,
-  date_from: date_from,
-  date_to: date_to,
+  ...getDatefrom_Dateto(),
   interval: 1,
 };
 
 export default function Sample() {
-  const [timescale, setTimescale] = useState("24h");
   const [series, setSeries] = useState([
     [{ place: "1" }],
     [{ place: "2" }],
     [{ place: "3" }],
   ]);
   const [params, setParams] = useState(initParams);
+  const [tmp_params, setTmpparams] = useState(initParams);
 
   useEffect(() => {
     const func = async () => {
@@ -90,30 +84,26 @@ export default function Sample() {
       setSeries(data);
     };
     func();
-  }, [timescale]);
+  }, [params]);
 
-  const clickHandler = async () => {
-    // const res = await getData({});
-    // const obj = {name: "new", data: res}
-    // setSeries(obj);
-    await setTimescale((prev) => prev + "1");
-  };
-
-  const App = dynamic(() => import("./App"), {
-    ssr: false,
-    loading: () => <div>Loading...</div>,
-  });
+  // const App = dynamic(() => import("./App"), {
+  //   ssr: false,
+  //   loading: () => <div>Loading...</div>,
+  // });
   return (
     <>
       <Grid container justifyContent="center" alignItems="center">
-        <Grid container justifyContent="center" alignItems="center" spacing={2}>
+        <Grid container justifyContent="center" alignItems="center">
           <Grid item>
             <h1>Bitcoin Price Tracker</h1>
           </Grid>
         </Grid>
-        <Grid container justifyContent="center" alignItems="center" spacing={2}>
+        <Grid container justifyContent="center" alignItems="center">
           <Grid item>
-            <h2>Compare exchange rate Bitcoin to JPY with Binance, Coincheck and bitFlyer</h2>
+            <h2>
+              Compare exchange rate Bitcoin to JPY with Binance, Coincheck and
+              bitFlyer
+            </h2>
           </Grid>
         </Grid>
         <Grid container justifyContent="center" alignItems="center" spacing={2}>
@@ -124,6 +114,9 @@ export default function Sample() {
               margin="normal"
               // fullWidth
               defaultValue={params.date_from}
+              onChange={(e) => {
+                setTmpparams({ ...tmp_params, date_from: e.target.value });
+              }}
             />
           </Grid>
           <Grid item>
@@ -133,6 +126,9 @@ export default function Sample() {
               margin="normal"
               // fullWidth
               defaultValue={params.date_to}
+              onChange={(e) => {
+                setTmpparams({ ...tmp_params, date_to: e.target.value });
+              }}
             />
           </Grid>
           <Grid item>
@@ -143,13 +139,30 @@ export default function Sample() {
               margin="normal"
               // fullWidth
               defaultValue={params.interval}
+              onChange={(e) => {
+                setTmpparams({ ...tmp_params, interval: Number(e.target.value) });
+              }}
             />
           </Grid>
           <Grid item>
-            <Button variant="contained">Reload</Button>
+            <Button
+              variant="contained"
+              onClick={() => {
+                setParams(tmp_params);
+              }}
+            >
+              Reload
+            </Button>
           </Grid>
           <Grid item>
-            <Button variant="outlined">Reset</Button>
+            <Button
+              variant="outlined"
+              onClick={() => {
+                setParams({ ...initParams, ...getDatefrom_Dateto() });
+              }}
+            >
+              Reset
+            </Button>
           </Grid>
         </Grid>
         <Grid container justifyContent="center" alignItems="center" spacing={2}>
