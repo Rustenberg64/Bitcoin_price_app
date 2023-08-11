@@ -6,13 +6,15 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend
+  Legend,
+  ResponsiveContainer
 } from "recharts";
 
-export default function App({series}) {
-  const color = ["#8884d8","#8884d8","#3182bd"];
+export default function App({series}:{series:Array<any>}) {
+  const color = ["#FF4B00","#03AF7A","#005AFF"];
   return (
-    <LineChart width={800} height={800}>
+    <ResponsiveContainer width="80%" height={700}>
+    <LineChart margin={{ top: 5, right: 20, bottom: 5, left: 20 }}>
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis
         dataKey="requested_at"
@@ -23,11 +25,12 @@ export default function App({series}) {
         dataKey="ltp"
         domain={['auto', 'auto']} />
       <Tooltip />
-      <Legend />
-      {series.map((s, i) => (
+      <Legend verticalAlign="top" height={36} iconSize={25}/>
+      {series.map((s:Array<any>, i:number) => (
         <Line dataKey="ltp" data={s} name={s[0].place} key={s[0].place} stroke={color[i]} />
       ))}
       {/* <Line dataKey="ltp" data={series.data} name={series.place} key={series.place} /> */}
     </LineChart>
+    </ResponsiveContainer>
   );
 }
