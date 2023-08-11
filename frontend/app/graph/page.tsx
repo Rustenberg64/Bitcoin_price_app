@@ -1,8 +1,13 @@
 "use client";
-// import dynamic from "next/dynamic";
-import App from "./App";
-import { Button, Grid, TextField } from "@mui/material";
-import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+// import App from "./App";
+import { Button, CircularProgress, Grid, TextField } from "@mui/material";
+import { useEffect, useLayoutEffect, useState } from "react";
+
+const App = dynamic(() => import("./App"), {
+  ssr: false,
+  loading: () => <CircularProgress />,
+});
 
 type params1 = {
   place: String;
