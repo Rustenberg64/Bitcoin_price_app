@@ -10,6 +10,15 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+const xaxis_formatter = (value: string) => {
+  const date = new Date(value);
+  const minutes = date.getMinutes();
+  const tick = `${date.getMonth()}/${date.getDate()} ${date.getHours()}:${
+    minutes < 10 ? "0" : ""
+  }${minutes}`;
+  return tick;
+};
+
 export default function App({ series }: { series: Array<any> }) {
   const color = ["#FF4B00", "#03AF7A", "#005AFF"];
   return (
@@ -20,20 +29,22 @@ export default function App({ series }: { series: Array<any> }) {
           dataKey="requested_at"
           type="category"
           allowDuplicatedCategory={false}
+          tickFormatter={xaxis_formatter}
+          minTickGap={30}
         />
         <YAxis dataKey="ltp" domain={["auto", "auto"]} />
         <Tooltip />
         <Legend verticalAlign="top" height={36} iconSize={25} />
         {series.map((s: Array<any>, i: number) => {
           return (
-          <Line
-            dataKey="ltp"
-            data={s}
-            name={s[0]?.place || "No Data"}
-            key={s[0]?.place || "No Data"}
-            stroke={color[i]}
-          />
-          )
+            <Line
+              dataKey="ltp"
+              data={s}
+              name={s[0]?.place || "No Data"}
+              key={s[0]?.place || "No Data"}
+              stroke={color[i]}
+            />
+          );
         })}
         {/* <Line dataKey="ltp" data={series.data} name={series.place} key={series.place} /> */}
       </LineChart>

@@ -73,7 +73,7 @@ export default function Sample() {
     ...getDatefrom_Dateto(),
     interval: 1,
   };
-  
+
   const [series, setSeries] = useState([
     [{ place: "1" }],
     [{ place: "2" }],
@@ -91,10 +91,6 @@ export default function Sample() {
     func();
   }, [params]);
 
-  // const App = dynamic(() => import("./App"), {
-  //   ssr: false,
-  //   loading: () => <div>Loading...</div>,
-  // });
   return (
     <>
       <Grid container justifyContent="center" alignItems="center">
@@ -117,8 +113,8 @@ export default function Sample() {
               id="date_from"
               label="date_from"
               margin="normal"
-              // fullWidth
-              defaultValue={params.date_from}
+              // defaultValue={params.date_from}
+              value={tmp_params.date_from}
               onChange={(e) => {
                 setTmpparams({ ...tmp_params, date_from: e.target.value });
               }}
@@ -129,8 +125,8 @@ export default function Sample() {
               id="date_to"
               label="date_to"
               margin="normal"
-              // fullWidth
-              defaultValue={params.date_to}
+              // defaultValue={params.date_to}
+              value={tmp_params.date_to}
               onChange={(e) => {
                 setTmpparams({ ...tmp_params, date_to: e.target.value });
               }}
@@ -142,10 +138,13 @@ export default function Sample() {
               id="interval"
               label="interval"
               margin="normal"
-              // fullWidth
-              defaultValue={params.interval}
+              // defaultValue={params.interval}
+              value={tmp_params.interval}
               onChange={(e) => {
-                setTmpparams({ ...tmp_params, interval: Number(e.target.value) });
+                setTmpparams({
+                  ...tmp_params,
+                  interval: Number(e.target.value),
+                });
               }}
             />
           </Grid>
@@ -163,7 +162,9 @@ export default function Sample() {
             <Button
               variant="outlined"
               onClick={() => {
-                setParams({ ...initParams, ...getDatefrom_Dateto() });
+                const date_obj = getDatefrom_Dateto();
+                setTmpparams({ ...initParams, ...date_obj });
+                setParams({ ...initParams, ...date_obj });
               }}
             >
               Fetch Latest
