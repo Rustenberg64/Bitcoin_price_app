@@ -25,6 +25,8 @@ type params2 = {
 
 const place_list = ["Binance", "Coincheck", "bitFlyer"];
 
+const iso8601_regexp = /\d{4}[-]\d{2}[-]\d{2}[T]\d{2}[:]\d{2}[:]\d{2}[+]\d{2}[:]\d{2}/;
+
 const getData = async ({ place, date_from, date_to, interval }: params1) => {
   date_from = date_from.replace("+", "%2B");
   date_to = date_to.replace("+", "%2B");
@@ -110,6 +112,8 @@ export default function Sample() {
         <Grid container justifyContent="center" alignItems="center" spacing={2}>
           <Grid item>
             <TextField
+              // helperText={tmp_params.date_from.match(iso8601_regexp) ? false : "invalid"}
+              error={tmp_params.date_from.match(iso8601_regexp) ? false : true}
               id="date_from"
               label="date_from"
               margin="normal"
@@ -122,6 +126,7 @@ export default function Sample() {
           </Grid>
           <Grid item>
             <TextField
+              error={tmp_params.date_to.match(iso8601_regexp) ? false : true}
               id="date_to"
               label="date_to"
               margin="normal"
@@ -134,6 +139,7 @@ export default function Sample() {
           </Grid>
           <Grid item>
             <TextField
+              error={tmp_params.interval >=1 && tmp_params.interval <= 60 ? false : true}
               inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
               id="interval"
               label="interval"
@@ -143,7 +149,7 @@ export default function Sample() {
               onChange={(e) => {
                 setTmpparams({
                   ...tmp_params,
-                  interval: Number(e.target.value),
+                  interval: parseInt(e.target.value, 10) || 0,
                 });
               }}
             />
