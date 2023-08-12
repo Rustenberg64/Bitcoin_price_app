@@ -22,7 +22,7 @@ const xaxis_formatter = (value: string) => {
 export default function App({ series }: { series: Array<any> }) {
   const color = ["#FF4B00", "#03AF7A", "#005AFF"];
   return (
-    <ResponsiveContainer width="80%" height={700}>
+    <ResponsiveContainer width="100%" height={700}>
       <LineChart margin={{ top: 5, right: 20, bottom: 5, left: 20 }}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
@@ -30,7 +30,7 @@ export default function App({ series }: { series: Array<any> }) {
           type="category"
           allowDuplicatedCategory={false}
           tickFormatter={xaxis_formatter}
-          minTickGap={30}
+          minTickGap={40}
         />
         <YAxis dataKey="ltp" domain={["auto", "auto"]} />
         <Tooltip />
@@ -43,6 +43,7 @@ export default function App({ series }: { series: Array<any> }) {
               name={s[0]?.place || "No Data"}
               key={s[0]?.place || "No Data"}
               stroke={color[i]}
+              dot={false}
             />
           );
         })}
