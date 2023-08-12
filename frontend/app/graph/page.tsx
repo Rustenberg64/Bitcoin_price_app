@@ -67,13 +67,13 @@ const getDatefrom_Dateto = () => {
   return { date_from, date_to };
 };
 
-const initParams = {
-  place_list: place_list,
-  ...getDatefrom_Dateto(),
-  interval: 1,
-};
-
 export default function Sample() {
+  const initParams = {
+    place_list: place_list,
+    ...getDatefrom_Dateto(),
+    interval: 1,
+  };
+  
   const [series, setSeries] = useState([
     [{ place: "1" }],
     [{ place: "2" }],
@@ -156,7 +156,7 @@ export default function Sample() {
                 setParams(tmp_params);
               }}
             >
-              Reload
+              Fetch
             </Button>
           </Grid>
           <Grid item>
@@ -166,7 +166,7 @@ export default function Sample() {
                 setParams({ ...initParams, ...getDatefrom_Dateto() });
               }}
             >
-              Reset
+              Fetch Latest
             </Button>
           </Grid>
         </Grid>

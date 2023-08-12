@@ -24,15 +24,17 @@ export default function App({ series }: { series: Array<any> }) {
         <YAxis dataKey="ltp" domain={["auto", "auto"]} />
         <Tooltip />
         <Legend verticalAlign="top" height={36} iconSize={25} />
-        {series.map((s: Array<any>, i: number) => (
+        {series.map((s: Array<any>, i: number) => {
+          return (
           <Line
             dataKey="ltp"
             data={s}
-            name={s[0].place}
-            key={s[0].place}
+            name={s[0]?.place || "No Data"}
+            key={s[0]?.place || "No Data"}
             stroke={color[i]}
           />
-        ))}
+          )
+        })}
         {/* <Line dataKey="ltp" data={series.data} name={series.place} key={series.place} /> */}
       </LineChart>
     </ResponsiveContainer>
