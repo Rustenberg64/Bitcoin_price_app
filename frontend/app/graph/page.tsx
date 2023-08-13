@@ -269,11 +269,11 @@ export default function Sample() {
             60分のうち60の約数であるものを指定できます
           </ListItemText>
           <ListItemText sx={{ display: "list-item" }}>
-            青色の"FETCH"ボタンを押すことで設定したパラメータでグラフを描画します
+            青色の&quot;FETCH&quot;ボタンを押すことで設定したパラメータでグラフを描画します
           </ListItemText>
           <ListItemText sx={{ display: "list-item" }}>
-            "FETCH
-            LATEST"ボタンを押すことで現在から過去３時間分の１分間隔のデータを描画します
+            &quot;FETCH
+            LATEST&quot;ボタンを押すことで現在から過去３時間分の１分間隔のデータを描画します
           </ListItemText>
         </List>
       </Container>
