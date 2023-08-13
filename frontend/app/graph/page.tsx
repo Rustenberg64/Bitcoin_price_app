@@ -45,7 +45,7 @@ const getData = async ({ place, date_from, date_to, interval }: params1) => {
   date_from = date_from.replace("+", "%2B");
   date_to = date_to.replace("+", "%2B");
   const url = new URL(
-    `http://localhost:4000/api/v1/bitcoin_prices?place=${place}&from=${date_from}&to=${date_to}&interval=${interval}`
+    `${process.env.NEXT_PUBLIC_PRICE_API_URL}?place=${place}&from=${date_from}&to=${date_to}&interval=${interval}`
   );
   // const url =  "http://localhost:4000/api/v1/bitcoin_prices?place=coincheck&from=2023-07-01T12:34:56%2B09:00&to=2024-08-31T12:34:56%2B09:00&interval=1"
   const response = await fetch(url);
@@ -90,18 +90,14 @@ export default function Sample() {
     interval: 1,
   };
 
-  const [series, setSeries] = useState([
-    [{ place: "1" }],
-    [{ place: "2" }],
-    [{ place: "3" }],
-  ]);
+  const [series, setSeries] = useState([[], [], []]);
   const [params, setParams] = useState(initParams);
   const [tmp_params, setTmpparams] = useState(initParams);
 
   useEffect(() => {
     const func = async () => {
       const data = await Promise.all(getAllData(params));
-      console.log(data);
+      // console.log(data);
       setSeries(data);
     };
     func();
