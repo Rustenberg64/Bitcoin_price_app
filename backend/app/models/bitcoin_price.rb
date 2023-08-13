@@ -17,5 +17,6 @@ class BitcoinPrice < ApplicationRecord
       .where("place = ?", place)
       .where(requested_at: from..to)
       .where("EXTRACT(MINUTE FROM requested_at) % ?  = 0", interval)
+      .order("requested_at ASC")
   end
 end

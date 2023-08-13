@@ -6,8 +6,9 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-    # volumes:
-    #   - ./data:/var/lib/postgresql/data
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    
 
   redis:
     image: redis:7.0.12
@@ -18,7 +19,7 @@ services:
       context: ./backend
       dockerfile: rails.Dockerfile
     command: >
-      bash -c "bundle exec rails db:create &&
+      bash -c "bundle exec rails db:setup DISABLE_DATABASE_ENVIRONMENT_CHECK=1 &&
       rm -f tmp/pids/server.pid && 
       bundle exec rails s -d -e production -p 3000 -b '0.0.0.0' &&
       bundle exec sidekiq -e production"
@@ -28,8 +29,8 @@ services:
       RAILS_ENV: production
     volumes:
       - ./backend:/home/dev-user/backend
-    ports:
-      - "3000:3000"
+    expose:
+      - "3000"
     depends_on:
       - db
       - redis
@@ -44,8 +45,8 @@ services:
     container_name: "bitcoin_react_web"
     volumes:
       - ./frontend:/home/dev-user/frontend
-    ports:
-      - "4000:4000"
+    expose:
+      - "4000"
     depends_on:
       - backend
     # user: dev-user

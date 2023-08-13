@@ -269,7 +269,10 @@ export default function Sample() {
           </ListItemText>
           <ListItemText sx={{ display: "list-item" }}>
             &quot;FETCH
-            LATEST&quot;ボタンを押すことで現在から過去３時間分の１分間隔のデータを描画します
+            LATEST&quot;ボタンを押すことで現在から過去6時間分の1分間隔のデータを描画します
+          </ListItemText>
+          <ListItemText sx={{ display: "list-item" }}>
+            各時刻以前の最終取引価格を表しており、時間的に変化がない場合は取引が行われていない可能性があります
           </ListItemText>
         </List>
       </Container>
