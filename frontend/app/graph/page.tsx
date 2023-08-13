@@ -2,13 +2,20 @@
 import dynamic from "next/dynamic";
 // import App from "./App";
 import {
+  AppBar,
   Button,
   CircularProgress,
   Container,
   Grid,
+  IconButton,
+  List,
+  ListItemText,
   TextField,
+  Toolbar,
+  Typography,
 } from "@mui/material";
-import { useEffect, useLayoutEffect, useState } from "react";
+import MenuIcon from "@mui/icons-material/Menu";
+import { useEffect, useState } from "react";
 
 const App = dynamic(() => import("./App"), {
   ssr: false,
@@ -101,116 +108,175 @@ export default function Sample() {
   }, [params]);
 
   return (
-    <Container fixed>
-      <Grid container justifyContent="center" alignItems="center">
-        <Grid item>
-          <h1>Bitcoin Price Tracker</h1>
-        </Grid>
-      </Grid>
-      <Grid container justifyContent="center" alignItems="center">
-        <Grid item>
-          <h2>
-            Compare exchange rate Bitcoin to JPY with Binance, Coincheck and
-            bitFlyer
-          </h2>
-        </Grid>
-      </Grid>
-      <Grid container justifyContent="center" alignItems="center" spacing={2}>
-        <Grid item>
-          <TextField
-            // helperText={tmp_params.date_from.match(iso8601_regexp) ? false : "invalid"}
-            error={tmp_params.date_from.match(iso8601_regexp) ? false : true}
-            id="date_from"
-            label="date_from"
-            margin="normal"
-            // defaultValue={params.date_from}
-            value={tmp_params.date_from}
-            onChange={(e) => {
-              setTmpparams({ ...tmp_params, date_from: e.target.value });
-            }}
-          />
-        </Grid>
-        <Grid item>
-          <TextField
-            error={tmp_params.date_to.match(iso8601_regexp) ? false : true}
-            id="date_to"
-            label="date_to"
-            margin="normal"
-            // defaultValue={params.date_to}
-            value={tmp_params.date_to}
-            onChange={(e) => {
-              setTmpparams({ ...tmp_params, date_to: e.target.value });
-            }}
-          />
-        </Grid>
-        <Grid item>
-          <TextField
-            error={
-              tmp_params.interval >= 1 && tmp_params.interval <= 60
-                ? false
-                : true
-            }
-            inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-            id="interval"
-            label="interval"
-            margin="normal"
-            // defaultValue={params.interval}
-            value={tmp_params.interval}
-            onChange={(e) => {
-              setTmpparams({
-                ...tmp_params,
-                interval: parseInt(e.target.value, 10) || 0,
-              });
-            }}
-          />
-        </Grid>
-        <Grid item>
-          <Button
-            variant="contained"
-            onClick={() => {
-              setParams(tmp_params);
-            }}
+    <>
+      <AppBar position="fixed">
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
           >
-            Fetch
-          </Button>
-        </Grid>
-        <Grid item>
-          <Button
-            variant="outlined"
-            onClick={() => {
-              const date_obj = getDatefrom_Dateto();
-              setTmpparams({ ...initParams, ...date_obj });
-              setParams({ ...initParams, ...date_obj });
-            }}
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6">Bitcoin Price Tracker</Typography>
+        </Toolbar>
+      </AppBar>
+      <Container>
+        {/* sx={{
+        backgroundColor: "#f5f5f5"
+      }} */}
+        <Toolbar />
+        {/* <h2>
+          Compare exchange rate Bitcoin to JPY with Binance, Coincheck and
+          bitFlyer
+        </h2> */}
+        <Grid
+          container
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          spacing={1}
+        >
+          <Grid
+            container
+            item
+            justifyContent="center"
+            alignItems="center"
+            spacing={2}
           >
-            Fetch Latest
-          </Button>
+            <Grid item>
+              <TextField
+                // helperText={tmp_params.date_from.match(iso8601_regexp) ? false : "invalid"}
+                error={
+                  tmp_params.date_from.match(iso8601_regexp) ? false : true
+                }
+                id="date_from"
+                label="date_from"
+                margin="normal"
+                // defaultValue={params.date_from}
+                value={tmp_params.date_from}
+                onChange={(e) => {
+                  setTmpparams({ ...tmp_params, date_from: e.target.value });
+                }}
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                error={tmp_params.date_to.match(iso8601_regexp) ? false : true}
+                id="date_to"
+                label="date_to"
+                margin="normal"
+                // defaultValue={params.date_to}
+                value={tmp_params.date_to}
+                onChange={(e) => {
+                  setTmpparams({ ...tmp_params, date_to: e.target.value });
+                }}
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                error={
+                  tmp_params.interval >= 1 && tmp_params.interval <= 60
+                    ? false
+                    : true
+                }
+                inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                id="interval"
+                label="interval"
+                margin="normal"
+                // defaultValue={params.interval}
+                value={tmp_params.interval}
+                onChange={(e) => {
+                  setTmpparams({
+                    ...tmp_params,
+                    interval: parseInt(e.target.value, 10) || 0,
+                  });
+                }}
+              />
+            </Grid>
+            <Grid item>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  setParams(tmp_params);
+                }}
+              >
+                Fetch
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                variant="outlined"
+                onClick={() => {
+                  const date_obj = getDatefrom_Dateto();
+                  setTmpparams({ ...initParams, ...date_obj });
+                  setParams({ ...initParams, ...date_obj });
+                }}
+              >
+                Fetch Latest
+              </Button>
+            </Grid>
+          </Grid>
+          <Grid
+            container
+            item
+            justifyContent="center"
+            alignItems="center"
+            spacing={2}
+          >
+            <Grid item>
+              <Typography variant="h6">
+                Date: {params.date_from} - {params.date_to}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography variant="h6">
+                Interval: {params.interval} min
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid container item justifyContent="center" alignItems="center">
+            <App series={series} />
+          </Grid>
         </Grid>
-      </Grid>
-      <Grid container justifyContent="center" alignItems="center" spacing={2}>
-        <Grid item>
-          <h3>
-            Date: {params.date_from} - {params.date_to}
-          </h3>
-        </Grid>
-        <Grid item>
-          <h3>Interval: {params.interval} min</h3>
-        </Grid>
-      </Grid>
-      <Grid container justifyContent="center" alignItems="center">
-        <App series={series} />
-      </Grid>
 
-      <h2>Description</h2>
-      <ul>
-        <li>Binace, Coincheck, bitFlyerの3つの取引所でのBitcoinとJPYの取引価格を確認できます</li>
-        <li>データは外部APIを呼び出して1分ごとに取得し、データベースに保存したものを用いています</li>
-        <li>date_fromは開始日、date_toは終了日を表しており、その期間でデータを取得し描画します</li>
-        <li>date_from、date_toはiso8601の形式で設定してください</li>
-        <li>intervalはデータの時間間隔を表し、1 - 60分のうち60の約数であるものを指定できます</li>
-        <li>青色の"FETCH"ボタンを押すことで設定したパラメータでグラフを描画します</li>
-        <li>"FETCH LATEST"ボタンを押すことで現在から過去３時間分の１分間隔のデータを描画します</li>
-      </ul>
-    </Container>
+        <Typography
+          variant="h4"
+          sx={{
+            paddingTop: 4,
+          }}
+        >
+          Description
+        </Typography>
+        <List sx={{ listStyleType: "disc", pl: 4 }}>
+          <ListItemText sx={{ display: "list-item" }}>
+            Binace, Coincheck,
+            bitFlyerの3つの取引所でのBitcoinとJPYの取引価格を確認できます
+          </ListItemText>
+          <ListItemText sx={{ display: "list-item" }}>
+            データは外部APIを呼び出して1分ごとに取得し、データベースに保存したものを用いています
+          </ListItemText>
+          <ListItemText sx={{ display: "list-item" }}>
+            date_fromは開始日、date_toは終了日を表しており、その期間でデータを取得し描画します
+          </ListItemText>
+          <ListItemText sx={{ display: "list-item" }}>
+            date_from、date_toはiso8601の形式で設定してください
+          </ListItemText>
+          <ListItemText sx={{ display: "list-item" }}>
+            intervalはデータの時間間隔を表し、1 -
+            60分のうち60の約数であるものを指定できます
+          </ListItemText>
+          <ListItemText sx={{ display: "list-item" }}>
+            青色の"FETCH"ボタンを押すことで設定したパラメータでグラフを描画します
+          </ListItemText>
+          <ListItemText sx={{ display: "list-item" }}>
+            "FETCH
+            LATEST"ボタンを押すことで現在から過去３時間分の１分間隔のデータを描画します
+          </ListItemText>
+        </List>
+      </Container>
+    </>
   );
 }
