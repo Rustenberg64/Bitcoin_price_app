@@ -1,5 +1,6 @@
 class GetUsdjpyPriceJob
   include Sidekiq::Job
+  sidekiq_options retry: false
   require 'net/http'
 
   def perform(*_args)

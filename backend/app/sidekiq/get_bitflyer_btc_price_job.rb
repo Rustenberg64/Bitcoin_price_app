@@ -1,5 +1,6 @@
 class GetBitflyerBtcPriceJob
   include Sidekiq::Job
+  sidekiq_options retry: false
   require 'net/http'
   include UserHelper
   # Time.zone.parse(response['timestamp'])

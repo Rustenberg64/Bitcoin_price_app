@@ -1,5 +1,6 @@
 class GetBinanceBtcPriceJob
   include Sidekiq::Job
+  sidekiq_options retry: false
   require 'net/http'
   include UserHelper
 

@@ -1,5 +1,6 @@
 class GetCoincheckBtcPriceJob
   include Sidekiq::Job
+  sidekiq_options retry: false
   require 'net/http'
   include UserHelper
   # Time.at(response['timestamp'])
