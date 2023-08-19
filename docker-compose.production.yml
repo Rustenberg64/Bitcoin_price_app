@@ -31,6 +31,8 @@ services:
       - ./backend:/home/dev-user/backend
     expose:
       - "3000"
+    ports:
+      - 50055:50055
     depends_on:
       - db
       - redis

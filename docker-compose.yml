@@ -26,6 +26,7 @@ services:
       - ./backend:/home/dev-user/backend
     ports:
       - "3000:3000"
+      - 50055:50055
     depends_on:
       - db
       - redis
