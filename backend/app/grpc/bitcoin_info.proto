@@ -9,6 +9,7 @@ message PriceRequest {
   string place = 1;
   string date_from = 2;
   string date_to = 3;
+  int64 interval = 4;
 }
 
 message Price {

@@ -2,7 +2,7 @@
 # Source: bitcoin_info.proto for package 'bitcoin_info'
 
 require 'grpc'
-require 'bitcoin_info_pb'
+require_relative 'bitcoin_info_pb'
 
 module BitcoinInfo
   module SearchPrice
