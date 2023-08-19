@@ -32,7 +32,7 @@ services:
     expose:
       - "3000"
     ports:
-      - 50055:50055
+      - 50051:50051
     depends_on:
       - db
       - redis
@@ -60,6 +60,7 @@ services:
      - ./nginx.conf:/etc/nginx/nginx.conf
     ports:
       - "80:80"
+      - 50055:50055
     depends_on:
       - frontend
     # environment:
