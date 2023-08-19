@@ -89,6 +89,13 @@ GEM
       raabro (~> 1.4)
     globalid (1.1.0)
       activesupport (>= 5.0)
+    google-protobuf (3.24.1-x86_64-linux)
+    googleapis-common-protos-types (1.8.0)
+      google-protobuf (~> 3.18)
+    grpc (1.57.0-x86_64-linux)
+      google-protobuf (~> 3.23)
+      googleapis-common-protos-types (~> 1.0)
+    grpc-tools (1.57.0)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     io-console (0.6.0)
@@ -268,6 +275,8 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   debug
+  grpc (~> 1.57)
+  grpc-tools (~> 1.57)
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.6)

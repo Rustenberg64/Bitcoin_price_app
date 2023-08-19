@@ -14,6 +14,8 @@ gem "puma", "~> 5.0"
 
 gem "sidekiq", "~> 7.1.2"
 gem "sidekiq-scheduler", "~> 5.0.3"
+gem "grpc", "~> 1.57"
+gem 'grpc-tools', '~> 1.57'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
@@ -54,4 +56,3 @@ group :development do
   # gem "spring"
   gem "solargraph"
 end
-

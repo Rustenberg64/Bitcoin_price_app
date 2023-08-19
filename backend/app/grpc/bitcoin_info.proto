@@ -1,0 +1,23 @@
+syntax = "proto3";
+package bitcoin_info;
+
+service search_price {
+  rpc GetPrices(PriceRequest) returns (Prices) {}
+}
+
+message PriceRequest {
+  string place = 1;
+  string date_from = 2;
+  string date_to = 3;
+}
+
+message Price {
+  int64 id = 1;
+  string place = 2;
+  string requested_at = 3;
+  int64 ltp = 4;
+}
+
+message Prices {
+  repeated Price prices = 1;
+}
