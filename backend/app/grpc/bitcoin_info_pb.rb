@@ -5,7 +5,7 @@
 require 'google/protobuf'
 
 
-descriptor_data = "\n\x12\x62itcoin_info.proto\x12\x0c\x62itcoin_info\"S\n\x0cPriceRequest\x12\r\n\x05place\x18\x01 \x01(\t\x12\x11\n\tdate_from\x18\x02 \x01(\t\x12\x0f\n\x07\x64\x61te_to\x18\x03 \x01(\t\x12\x10\n\x08interval\x18\x04 \x01(\x03\"E\n\x05Price\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05place\x18\x02 \x01(\t\x12\x14\n\x0crequested_at\x18\x03 \x01(\t\x12\x0b\n\x03ltp\x18\x04 \x01(\x03\"-\n\x06Prices\x12#\n\x06prices\x18\x01 \x03(\x0b\x32\x13.bitcoin_info.Price2O\n\x0csearch_price\x12?\n\tGetPrices\x12\x1a.bitcoin_info.PriceRequest\x1a\x14.bitcoin_info.Prices\"\x00\x62\x06proto3"
+descriptor_data = "\n\x12\x62itcoin_info.proto\x12\x0b\x42itcoinInfo\"S\n\x0cPriceRequest\x12\r\n\x05place\x18\x01 \x01(\t\x12\x11\n\tdate_from\x18\x02 \x01(\t\x12\x0f\n\x07\x64\x61te_to\x18\x03 \x01(\t\x12\x10\n\x08interval\x18\x04 \x01(\x03\"E\n\x05Price\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05place\x18\x02 \x01(\t\x12\x14\n\x0crequested_at\x18\x03 \x01(\t\x12\x0b\n\x03ltp\x18\x04 \x01(\x03\",\n\x06Prices\x12\"\n\x06prices\x18\x01 \x03(\x0b\x32\x12.BitcoinInfo.Price2L\n\x0bSearchPrice\x12=\n\tGetPrices\x12\x19.BitcoinInfo.PriceRequest\x1a\x13.BitcoinInfo.Prices\"\x00\x62\x06proto3"
 
 pool = Google::Protobuf::DescriptorPool.generated_pool
 
@@ -32,7 +32,7 @@ rescue TypeError => e
 end
 
 module BitcoinInfo
-  PriceRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("bitcoin_info.PriceRequest").msgclass
-  Price = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("bitcoin_info.Price").msgclass
-  Prices = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("bitcoin_info.Prices").msgclass
+  PriceRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("BitcoinInfo.PriceRequest").msgclass
+  Price = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("BitcoinInfo.Price").msgclass
+  Prices = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("BitcoinInfo.Prices").msgclass
 end

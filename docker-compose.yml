@@ -36,7 +36,7 @@ services:
     build:
       context: ./frontend
       dockerfile: react.Dockerfile
-    command: bash -c "npm run build && npm run start"
+    command: bash -c "npm run dev"
     tty: true
     container_name: "bitcoin_react_web"
     volumes:
