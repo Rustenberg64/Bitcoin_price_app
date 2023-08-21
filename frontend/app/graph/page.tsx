@@ -44,10 +44,19 @@ const iso8601_regexp =
 const getData = async ({ place, date_from, date_to, interval }: params1) => {
   date_from = date_from.replace("+", "%2B");
   date_to = date_to.replace("+", "%2B");
+  // When use frontend api
+  // const url = new URL(
+  //   `${window.location.origin}/api/v1/bitcoin_prices?place=${place}&from=${date_from}&to=${date_to}&interval=${interval}`
+  // );
+
+  // When use backend api
   const url = new URL(
-    `${window.location.origin}/api/v1/bitcoin_prices?place=${place}&from=${date_from}&to=${date_to}&interval=${interval}`
+    `${window.location.protocol}//${window.location.hostname}:3000/api/v1/bitcoin_prices?place=${place}&from=${date_from}&to=${date_to}&interval=${interval}`
+    // `http://localhost:3000/api/v1/bitcoin_prices?place=${place}&from=${date_from}&to=${date_to}&interval=${interval}`
   );
-  // const url =  "http://localhost:4000/api/v1/bitcoin_prices?place=coincheck&from=2023-07-01T12:34:56%2B09:00&to=2024-08-31T12:34:56%2B09:00&interval=1"
+
+  // const url =  new URL("http://localhost:3000/api/v1/bitcoin_prices?place=Coincheck&from=2023-07-01T12:34:56%2B09:00&to=2024-08-31T12:34:56%2B09:00&interval=1")
+  // console.log(url)
   const response = await fetch(url);
   const res = await response.json();
   return res;
