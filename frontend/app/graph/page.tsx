@@ -125,7 +125,7 @@ export default function Sample() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6">Bitcoin Price Tracker</Typography>
+          <Typography variant="h6">Bitcoin Price Tracker (HTTP/JSON)</Typography>
         </Toolbar>
       </AppBar>
       <Container>
