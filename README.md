@@ -31,3 +31,19 @@ URL: [http://15.152.34.34/graph](http://15.152.34.34/graph)
   - グラフ描画(Rechartsを用いる)に必要なデータをCliantに渡します。データはBackendのAPIを呼び出して取得しCliantにWeb APIを介して返却するので、Next.jsは中間APIとして機能します。
 - Redis
   - 非同期処理を行うRubyのGemであるSidekiqに必要なため用いています
+
+# Benchmark
+1万件のDBのレコードを取り出して2つの方法(gRPC/protobu,HTTP/JSON)で受け取るのにかかる時間を計測します。1つ目の計測にはRubyのBenchmarkモジュールを用います。どちらのServer,ClientもRuby on Rails上で立ち上げました。単位はsecです。
+
+|               | user     | system   | total    | real         |
+| ------------- | -------- | -------- | -------- | ------------ |
+| gRPC/protobuf | 0.002513 | 0.000000 | 0.002513 | (  0.255625) |
+| HTTP/JSON     | 0.010337 | 0.000000 | 0.010337 | (  0.608013) |
+
+userを比較すると約4倍程度高速になりました。
+今度はClientをWebブラウザに変更して、同様に計測します。計測はChormeの開発者ツールを用いて5回の平均を取りました。
+|               | Time     | Size   |
+| ------------- | -------- | ------ |
+| gRPC/protobuf | 305.2ms  | 640 kB |
+| HTTP/JSON     | 647.2 ms | 931 kB |
+この場合は2倍程度高速化し、サイズは0.7倍程度になりました。
