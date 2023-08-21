@@ -58,7 +58,7 @@ const getDatefrom_Dateto = () => {
   const now = new Date();
   const past = new Date(now);
   const date_to = convertToiso8601(now);
-  past.setHours(past.getHours() - 6);
+  past.setHours(past.getHours() - 24);
   const date_from = convertToiso8601(past);
   return { date_from, date_to };
 };
@@ -279,7 +279,7 @@ export default function Sample() {
           </ListItemText>
           <ListItemText sx={{ display: "list-item" }}>
             &quot;FETCH
-            LATEST&quot;ボタンを押すことで現在から過去6時間分の1分間隔のデータを描画します
+            LATEST&quot;ボタンを押すことで現在から過去24時間分の1分間隔のデータを描画します
           </ListItemText>
           <ListItemText sx={{ display: "list-item" }}>
             各時刻以前の最終取引価格を表しており、時間的に変化がない場合は取引が行われていない可能性があります
