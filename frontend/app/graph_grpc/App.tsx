@@ -26,7 +26,7 @@ export default function App({ series }: { series: Array<any> }) {
       <LineChart margin={{ top: 5, right: 20, bottom: 5, left: 20 }}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
-          dataKey="requested_at"
+          dataKey="requestedAt"
           type="category"
           allowDuplicatedCategory={false}
           tickFormatter={xaxis_formatter}
