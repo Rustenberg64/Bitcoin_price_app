@@ -51,7 +51,7 @@ const getData = async ({ place, date_from, date_to, interval }: params1) => {
 
   // When use backend api
   const url = new URL(
-    `${window.location.protocol}//${window.location.hostname}:3000/api/v1/bitcoin_prices?place=${place}&from=${date_from}&to=${date_to}&interval=${interval}`
+    `${window.location.protocol}//${window.location.hostname}:3030/api/v1/bitcoin_prices?place=${place}&from=${date_from}&to=${date_to}&interval=${interval}`
     // `http://localhost:3000/api/v1/bitcoin_prices?place=${place}&from=${date_from}&to=${date_to}&interval=${interval}`
   );
 
