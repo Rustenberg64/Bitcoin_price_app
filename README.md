@@ -2,7 +2,7 @@
 Bitcoinの1分間隔の価格変動をグラフで見ることができ、3つの取引所(Binance, Coincheck, bitFlyer)の1BTCあたりの日本円での価格を比較できます。
 それぞれの取引所のホームページでは自身の取引所の価格のグラフしかなく、またグラフの描画に必要な高頻度(1分間隔)の過去データを得るのは手間がかかります。そこでこのアプリケーションではデータの収集をサーバー側で行い、手間なく簡単に価格変動をグラフで確認できるようにしました。
 データの日時の範囲の指定および時間間隔の指定を行えるので、グラフの描画を行う際のデータを自由に選択できます。gRPCを用いてデーテを取得するので高速なグラフの描画が期待できます。<br>
-URL: [http://15.152.34.34/graph_grpc](http://15.152.34.34/graph_grpc)
+URL: [http://13.208.240.130/graph_grpc](http://13.208.240.130/graph_grpc)
 
 ![Bitcoin price trackerの例](README_src/Bitcoin_price_tracker.png)
 
@@ -36,7 +36,7 @@ URL: [http://15.152.34.34/graph_grpc](http://15.152.34.34/graph_grpc)
 - Redis
   - 非同期処理を行うRubyのGemであるSidekiqに必要なため用いています
 
-対応するURL: [http://15.152.34.34/graph_grpc](http://15.152.34.34/graph_grpc)
+対応するURL: [http://13.208.240.130/graph_grpc](http://13.208.240.130/graph_grpc)
 
 # 構成(HTTP/JSON)
 
@@ -45,7 +45,7 @@ URL: [http://15.152.34.34/graph_grpc](http://15.152.34.34/graph_grpc)
 - Backend(Ruby on Rails)
   - Clientへデータを渡す方式をgRPCではなく、HTTP/JSONのREST APIを用いています。
 
-対応するURL: [http://15.152.34.34/graph](http://15.152.34.34/graph)
+対応するURL: [http://13.208.240.130/graph](http://13.208.240.130/graph_grpc)
 
 
 
