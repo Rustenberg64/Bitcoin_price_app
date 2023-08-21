@@ -17,10 +17,10 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { useEffect, useState } from "react";
 
-global.XMLHttpRequest = require('xhr2');
-import * as grpcWeb from 'grpc-web';
-import {SearchPriceClient} from './Bitcoin_infoServiceClientPb';
-import {PriceRequest, Prices} from './bitcoin_info_pb';
+global.XMLHttpRequest = require("xhr2");
+// import * as grpcWeb from "grpc-web";
+import { SearchPriceClient } from "./Bitcoin_infoServiceClientPb";
+import { PriceRequest, Prices } from "./bitcoin_info_pb";
 
 const App = dynamic(() => import("./App"), {
   ssr: false,
@@ -69,31 +69,41 @@ export default function Sample() {
     ...getDatefrom_Dateto(),
     interval: 1,
   };
-  const grpc_url =`${window.location.protocol}//${window.location.hostname}:10000`
-  const serchService = new SearchPriceClient(grpc_url,null,null);
+
+  
+  // const grpc_url = `${window?.location.protocol}//${window?.location.hostname}:10000`;
+  // const serchService = new SearchPriceClient(grpc_url, null, null);
   // const serchService = new SearchPriceClient('http://localhost:10000',null,null);
-  const getDatabygRPC = async ({ place, date_from, date_to, interval }: params1) => {
+  const getDatabygRPC = async ({
+    place,
+    date_from,
+    date_to,
+    interval,
+  }: params1, serchService: SearchPriceClient) => {
     const request = new PriceRequest();
-    // request.setDateFrom('2023-08-19T11:01:00+09:00');
-    // request.setDateTo('2023-08-21T17:01:00+09:00');
-    // request.setPlace('Coincheck');
-    // request.setInterval(1);
     request.setDateFrom(date_from);
     request.setDateTo(date_to);
     request.setPlace(place);
     request.setInterval(interval);
-    const response = await serchService.getPrices(request, {'custom-header-1': 'value1'})
+    const response = await serchService.getPrices(request, {
+      "custom-header-1": "value1",
+    });
     return response.toObject().pricesList;
   };
-  
-  const getAllDatabygRPC = ({ place_list, date_from, date_to, interval }: params2) => {
-    const list = place_list.map( (place) => {
+
+  const getAllDatabygRPC = ({
+    place_list,
+    date_from,
+    date_to,
+    interval,
+  }: params2, serchService: SearchPriceClient) => {
+    const list = place_list.map((place) => {
       const res = getDatabygRPC({
         place,
         date_from,
         date_to,
         interval,
-      });
+      }, serchService);
       return res;
     });
     return list;
@@ -104,11 +114,11 @@ export default function Sample() {
   const [tmp_params, setTmpparams] = useState(initParams);
 
   useEffect(() => {
+    const grpc_url = `${window.location.protocol}//${window.location.hostname}:10000`;
+    const serchService = new SearchPriceClient(grpc_url, null, null);
     const func_grpc = async () => {
-      const data = await Promise.all(getAllDatabygRPC(params));
-      // console.log(data);
+      const data = await Promise.all(getAllDatabygRPC(params,serchService));
       setSeries(data);
-      console.log(series);
     };
     func_grpc();
   }, [params]);
@@ -130,14 +140,7 @@ export default function Sample() {
         </Toolbar>
       </AppBar>
       <Container>
-        {/* sx={{
-        backgroundColor: "#f5f5f5"
-      }} */}
         <Toolbar />
-        {/* <h2>
-          Compare exchange rate Bitcoin to JPY with Binance, Coincheck and
-          bitFlyer
-        </h2> */}
         <Grid
           container
           direction="column"
@@ -161,7 +164,6 @@ export default function Sample() {
                 id="date_from"
                 label="date_from"
                 margin="normal"
-                // defaultValue={params.date_from}
                 value={tmp_params.date_from}
                 onChange={(e) => {
                   setTmpparams({ ...tmp_params, date_from: e.target.value });
@@ -174,7 +176,6 @@ export default function Sample() {
                 id="date_to"
                 label="date_to"
                 margin="normal"
-                // defaultValue={params.date_to}
                 value={tmp_params.date_to}
                 onChange={(e) => {
                   setTmpparams({ ...tmp_params, date_to: e.target.value });
@@ -192,7 +193,6 @@ export default function Sample() {
                 id="interval"
                 label="interval"
                 margin="normal"
-                // defaultValue={params.interval}
                 value={tmp_params.interval}
                 onChange={(e) => {
                   setTmpparams({

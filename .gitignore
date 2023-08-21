@@ -1,2 +1,4 @@
 # .devcontainer
 /data
+backend/supervisord.log
+backend/supervisord.conf

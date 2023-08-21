@@ -1,17 +1,16 @@
 require "grpc"
-require_relative "bitcoin_info_services_pb.rb"
+require_relative "bitcoin_info_services_pb"
 
 class ServerImpl < BitcoinInfo::SearchPrice::Service
-
   # def initialize()
   # end
 
   def get_prices(req, _call)
     prices = BitcoinPrice.get(place: req.place, from: req.date_from, to: req.date_to, interval: req.interval).to_a
     res = prices.map do |price|
-      {id: price.id, place: price.place, requested_at: price.requested_at.iso8601, ltp: price.ltp}
+      { id: price.id, place: price.place, requested_at: price.requested_at.iso8601, ltp: price.ltp }
     end
-    res = {prices: res}
+    res = { prices: res }
     BitcoinInfo::Prices.new(res)
   end
 end
