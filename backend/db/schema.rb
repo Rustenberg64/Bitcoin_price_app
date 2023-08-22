@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_08_175546) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_22_132326) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -24,6 +24,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_08_175546) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["requested_at"], name: "index_bitcoin_prices_on_requested_at"
+  end
+
+  create_table "exchange_rates", force: :cascade do |t|
+    t.string "exchange_type"
+    t.string "place"
+    t.decimal "rate"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

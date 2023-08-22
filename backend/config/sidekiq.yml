@@ -10,7 +10,7 @@
       cron: '0 * * * * *'
       class: GetBinanceBtcPriceJob
     get_USDJPY_api:
-      cron: '30 */5 * * * *'
+      cron: '30 */20 * * * *'
       class: GetUsdjpyPriceJob
     first_get_USDJPY_api:
       in: 0s
