@@ -85,7 +85,7 @@ export default function Sample() {
     request.setDateTo(date_to);
     request.setPlace(place);
     request.setInterval(interval);
-    const response = await serchService.getPrices(request, {
+    const response :Prices = await serchService.getPrices(request, {
       "custom-header-1": "value1",
     });
     return response.toObject().pricesList;
@@ -109,7 +109,7 @@ export default function Sample() {
     return list;
   };
 
-  const [series, setSeries] = useState([[{}], [{}], [{}]]);
+  const [series, setSeries] = useState(Array<Array<any>>);
   const [params, setParams] = useState(initParams);
   const [tmp_params, setTmpparams] = useState(initParams);
 

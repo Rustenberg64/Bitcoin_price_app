@@ -23,17 +23,17 @@ const App = dynamic(() => import("./App"), {
 });
 
 type params1 = {
-  place: String;
-  date_from: String;
-  date_to: String;
-  interval: Number;
+  place: string;
+  date_from: string;
+  date_to: string;
+  interval: number;
 };
 
 type params2 = {
-  place_list: Array<String>;
-  date_from: String;
-  date_to: String;
-  interval: Number;
+  place_list: Array<string>;
+  date_from: string;
+  date_to: string;
+  interval: number;
 };
 
 const place_list = ["Binance", "Coincheck", "bitFlyer"];
