@@ -22,7 +22,7 @@ const xaxis_formatter = (value: string) => {
 export default function App({ series }: { series: Array<any> }) {
   const color = ["#FF4B00", "#03AF7A", "#005AFF"];
   return (
-    <ResponsiveContainer width="100%" height={700}>
+    <ResponsiveContainer aspect={1.62}>
       <LineChart margin={{ top: 5, right: 20, bottom: 5, left: 20 }}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
