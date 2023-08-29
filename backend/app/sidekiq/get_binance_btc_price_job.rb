@@ -4,6 +4,12 @@ class GetBinanceBtcPriceJob
   require 'net/http'
   include UserHelper
 
+  # def fetch_binance_api
+  #   response1 = JSON.parse(Net::HTTP.get(URI.parse('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT')))
+  #   response2 = JSON.parse(Net::HTTP.get(URI.parse('https://api.binance.com/api/v3/ticker/bookTicker?symbol=BTCUSDT')))
+  #   response1, response2
+  # end
+
   def perform(*_args)
     response1 = JSON.parse(Net::HTTP.get(URI.parse('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT')))
     response2 = JSON.parse(Net::HTTP.get(URI.parse('https://api.binance.com/api/v3/ticker/bookTicker?symbol=BTCUSDT')))

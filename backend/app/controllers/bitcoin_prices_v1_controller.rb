@@ -1,10 +1,8 @@
+# 渡されたパラメータに対応するBitcoinの価格一覧をJSON形式で返す
 class BitcoinPricesV1Controller < ApplicationController
-  wrap_parameters :bitcoin_price, include: [:place, :from, :to, :interval]
   def get
-    # logger.debug api_params
-    # logger.debug api_params.to_hash.symbolize_keys
-    # price = BitcoinPrice.get(place: params[:place], from: params[:from], to: params[:to], interval: params[:interval])
-    price = BitcoinPrice.get(**api_params.to_hash.symbolize_keys)
+    ## api_paramsをキーワード変数として渡すためにハッシュに変換している
+    price = BitcoinPrice.select_bitcoin_prices(**api_params.to_hash.symbolize_keys)
     render json: price
   end
 
