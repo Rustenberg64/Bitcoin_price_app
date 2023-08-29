@@ -1,10 +1,8 @@
 require "grpc"
 require_relative "bitcoin_info_services_pb"
 
+# grpcのサーバー
 class ServerImpl < BitcoinInfo::SearchPrice::Service
-  # def initialize()
-  # end
-
   def get_prices(req, _call)
     prices = BitcoinPrice.select_bitcoin_prices(place: req.place, from: req.date_from, to: req.date_to, interval: req.interval).to_a
     res = prices.map do |price|
