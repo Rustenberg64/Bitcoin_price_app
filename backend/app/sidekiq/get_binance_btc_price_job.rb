@@ -16,6 +16,6 @@ class GetBinanceBtcPriceJob
     usdjpy = ExchangeRate.last.rate
     binance = { exchange_type: 'BTC_JPY', place: 'Binance', requested_at: date_floor_sec, ask: (res[1]['askPrice'].to_f * usdjpy),
                 bid: (res[1]['bidPrice'].to_f * usdjpy), ltp: (res[0]['price'].to_f * usdjpy) }
-    BitcoinPrice.create(binance)
+    BitcoinPrice.create!(binance)
   end
 end
