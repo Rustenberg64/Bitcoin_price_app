@@ -1,7 +1,4 @@
 class BitcoinPrice < ApplicationRecord
-  class << self
-    attr_accessor :USDJPY
-  end
 
   # from, toはiso8601の表記で入れる
   # intervalの単位はminute

@@ -1,5 +1,5 @@
 module UserHelper
-  def floor_sec
+  def date_floor_sec
     time = Time.current.floor
     time -= time.sec
     time
