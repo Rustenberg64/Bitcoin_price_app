@@ -30,7 +30,7 @@ services:
     depends_on:
       - db
       - redis
-    user: dev-user
+    # user: dev-user
 
   frontend:
     build:

@@ -1,4 +1,9 @@
 require 'rails_helper'
 RSpec.describe GetBinanceBtcPriceJob, type: :job do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "succeed with right url" do
+    usdjpy = { exchange_type: 'USD_JPY', place: 'Alpha Vantage', rate: 140 }
+    ExchangeRate.create(usdjpy)
+    job = GetBinanceBtcPriceJob.new
+    expect(job.perform).to be_truthy
+  end
 end

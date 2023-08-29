@@ -10,6 +10,6 @@ class GetCoincheckBtcPriceJob
     response = JSON.parse(Net::HTTP.get(URI.parse('https://coincheck.com/api/ticker?pair=btc_jpy')))
     coincheck = { exchange_type: 'BTC_JPY', place: 'Coincheck', requested_at: date_floor_sec, ask: response['ask'],
                   bid: response['bid'], ltp: response['last'] }
-    BitcoinPrice.create(coincheck)
+    BitcoinPrice.create!(coincheck)
   end
 end

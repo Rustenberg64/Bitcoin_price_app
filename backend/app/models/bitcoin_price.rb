@@ -1,6 +1,10 @@
 # 外部APIから取得したBitcoinの1分間隔の価格データを保存する
 # APIがこのアプリに呼び出された際はこのモデルを通じてデータを取得する
 class BitcoinPrice < ApplicationRecord
+  validates :ltp, :requested_at, presence: true
+  validates :requested_at, uniqueness: true
+  validates :ltp, numericality: true
+
   class << self
     # from, toはiso8601の表記で入れる
     # intervalの単位はminute
@@ -8,12 +12,12 @@ class BitcoinPrice < ApplicationRecord
       interval = interval&.to_i || interval
       from = to_floor_sec_date(from)
       to = to_floor_sec_date(to)
+
       self
         .select(:id, :place, :requested_at, :ltp)
         .where("place = ?", place)
         .where(requested_at: from..to)
         .where("EXTRACT(MINUTE FROM requested_at) % ?  = 0", interval)
-        .order("requested_at ASC")
     end
 
     private

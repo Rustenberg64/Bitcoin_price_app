@@ -9,7 +9,7 @@ URL: [http://13.208.211.203/graph_grpc](http://13.208.211.203/graph_grpc)
 # 環境等
 
 
-- Ruby on Rails 7.0.6
+- Ruby on Rails 7.0.7
   - Ruby 3.2.2
 - Next.js 13.4.12
   - Typescript 5.1.6
