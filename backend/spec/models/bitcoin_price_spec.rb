@@ -41,20 +41,25 @@ RSpec.describe BitcoinPrice, type: :model do
 
   describe 'class method select_bitcoin_prices' do
     context 'when rigth params is given' do
-      before do
+      let!(:records) do
         dates = ['2023-08-20T13:50:00+09:00', '2023-08-21T13:50:00+09:00', '2023-08-23T11:50:00+09:00']
-        @records =
-          dates.map do |date|
-            FactoryBot.create(:bitcoin_price, requested_at: date)
-          end
+        dates.map do |date|
+          FactoryBot.create(:bitcoin_price, requested_at: date)
+        end
+      end
+
+      let!(:selected) do
+        described_class.select_bitcoin_prices(place: 'Binance', from: '2023-08-20T13:50:00+09:00', to: '2023-08-21T13:50:00+09:00', interval: 1).to_a
       end
 
       # 配列datesの３つ目の値は範囲外のため、取り出さないことを確認する
-      it 'return first 2 records' do
-        selected = BitcoinPrice.select_bitcoin_prices(place: 'Binance', from: '2023-08-20T13:50:00+09:00', to: '2023-08-21T13:50:00+09:00', interval: 1).to_a
+      it 'return 2 records' do
         expect(selected.size).to eq 2
+      end
+
+      it 'return first 2 records' do
         2.times do |i|
-          expect(selected[i].id).to eq @records[i].id
+          expect(selected[i].id).to eq records[i].id
         end
       end
     end
