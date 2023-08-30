@@ -2,7 +2,6 @@
 # APIがこのアプリに呼び出された際はこのモデルを通じてデータを取得する
 class BitcoinPrice < ApplicationRecord
   validates :ltp, :requested_at, presence: true
-  validates :requested_at, uniqueness: true
   validates :ltp, numericality: true
 
   class << self

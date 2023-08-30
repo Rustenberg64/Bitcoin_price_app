@@ -8,14 +8,6 @@ RSpec.describe BitcoinPrice, type: :model do
     end
   end
 
-  context 'when it has duplicated requested_at column' do
-    it 'is invalid' do
-      FactoryBot.create(:bitcoin_price)
-      price = FactoryBot.build(:bitcoin_price)
-      expect(price).not_to be_valid
-    end
-  end
-
   context 'when ltp column is not number' do
     it 'is invalid' do
       price = FactoryBot.build(:bitcoin_price, ltp: 'not number')

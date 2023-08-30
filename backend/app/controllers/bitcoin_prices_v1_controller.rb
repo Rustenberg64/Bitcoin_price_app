@@ -1,6 +1,7 @@
 # 渡されたパラメータに対応するBitcoinの価格一覧をJSON形式で返す
 class BitcoinPricesV1Controller < ApplicationController
   before_action :check_params
+
   def get
     ## api_paramsをキーワード変数として渡すためにハッシュに変換している
     price = BitcoinPrice.select_bitcoin_prices(**api_params.to_hash.symbolize_keys)
@@ -23,7 +24,7 @@ class BitcoinPricesV1Controller < ApplicationController
     message["error_2"] = check_from_param
     message["error_3"] = check_to_param
     message["error_4"] = check_interval_param
-    # hashのvalueがnullになっているものを取り除く
+    # エラーメッセージに含まないようにhashのvalueがnullになっているものを取り除く
     message.compact!
     render json: message, status: :bad_request unless message.empty?
   end
@@ -38,7 +39,7 @@ class BitcoinPricesV1Controller < ApplicationController
   end
 
   def check_to_param
-    'invalid from param' unless params[:from]&.match?(REGEXP_ISO8601)
+    'invalid to param' unless params[:to]&.match?(REGEXP_ISO8601)
   end
 
   def check_interval_param
