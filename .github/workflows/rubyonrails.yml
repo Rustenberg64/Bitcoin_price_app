@@ -10,6 +10,12 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+
+defaults:
+  run:
+    shell: bash
+    working-directory: backend
+    
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -38,7 +44,7 @@ jobs:
         run: bin/rails db:schema:load
       # Add or replace test runners here
       - name: Run tests
-        run: backend/bin/bundle exec rspec
+        run: bin/bundle exec rspec
 
   lint:
     runs-on: ubuntu-latest
@@ -51,4 +57,4 @@ jobs:
           bundler-cache: true
       # Add or replace any other lints here
       - name: Lint Ruby files
-        run: backend/bin/bundle exec rubocop
+        run: bin/bundle exec rubocop
