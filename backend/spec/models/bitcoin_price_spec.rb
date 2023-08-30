@@ -57,11 +57,12 @@ RSpec.describe BitcoinPrice, type: :model do
           end
       end
 
-      it 'return 2 records' do
+      # 配列datesの３つ目の値は範囲外のため、取り出さないことを確認する
+      it 'return first 2 records' do
         selected = BitcoinPrice.select_bitcoin_prices(place: 'Somewhere', from: '2023-08-20T13:50:00+09:00', to: '2023-08-21T13:50:00+09:00', interval: 1).to_a
+        expect(selected.size).to eq 2
         2.times do |i|
           expect(selected[i].id).to eq @records[i].id
-          expect(selected[i].requested_at).to eq @records[i].requested_at
         end
       end
     end
